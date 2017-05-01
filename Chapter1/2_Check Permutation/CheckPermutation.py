@@ -1,19 +1,16 @@
 # O(N)
 import unittest
-from collections import Counter
+from itertools import permutations
 
 
 def check_permutation(str1, str2):
     if len(str1) != len(str2):
         return False
-    counter = Counter()
-    for c in str1:
-        counter[c] += 1
-    for c in str2:
-        if counter[c] == 0:
-            return False
-        counter[c] -= 1
-    return True
+    
+    for x in permutations(str1, len(str1)):
+        if str2 == "".join(list(x)):
+            return True
+    return False
 
 
 class Test(unittest.TestCase):
