@@ -63,8 +63,36 @@ class Hand(object):
 
 
 class BriscolaDeck(Deck):
-    cardsType = [1, 2, 3, 4, 5, 6, 7, 'J', 'Q', 'K']
+    cardsType = [1, 2, 3, 4, 5, 6, 7, 8, 'J', 'Q', 'K']
 
+
+class BlackJackDeck(Deck):
+    
+    def __init__(self, deck_color):
+        self.cards = []
+        self.deckColor = deck_color
+        self._generate_cards()
+        self._generate_cards()
+
+
+class BlackJackHand(Hand):
+    
+    @property
+    def score(self):
+        score_v1 = 0
+        score_v2 = 0
+        for card in self.cards:
+            try:
+                if card.number == 1:
+                    score_v1 += 1
+                    score_v2 += 11
+                else:
+                    score_v1 += card.number
+                    score_v2 += card.number
+            except ValueError:
+                score_v1 += 10
+                score_v2 += 10
+        return score_v1, score_v2
 
 if __name__ == '__main__':
     deck = Deck('RED')
